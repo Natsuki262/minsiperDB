@@ -185,6 +185,7 @@ MonoBehaviour:
   gridLayoutGroup: {fileID: 1109755431}
   Cellprefab: {fileID: 4507694389577685841, guid: 8970345ef8604fc4bbeabf81dc6110d1,
     type: 3}
+  bombCount: 80
 --- !u!4 &615533222
 Transform:
   m_ObjectHideFlags: 0
