@@ -31,6 +31,11 @@ public class Cell : MonoBehaviour
     /// </summary>
     [SerializeField]
     Text mineStatusTxt;
+    /// <summary>
+    /// ボタンセルをユーザに押してもらうため
+    /// </summary>
+    [SerializeField]
+    Button button = null;
 
     void Start()
     {
@@ -48,5 +53,12 @@ public class Cell : MonoBehaviour
     void Update()
     {
 
+    }
+    /// <summary>
+    /// ユーザがタッチしたらシェルを開く
+    /// </summary>
+  public  void CellTouchOpen()
+    {
+        button.gameObject.SetActive(false);
     }
 }
