@@ -14,7 +14,7 @@ public class GameManeger : MonoBehaviour
     /// 列
     /// </summary>
     [SerializeField]
-    private int coulums = 1;
+    private int columns = 1;
 
     [SerializeField]
     private GridLayoutGroup gridLayoutGroup = null;
@@ -33,15 +33,15 @@ public class GameManeger : MonoBehaviour
 
     void Start()
     {
-        //ここで配列の中にrowsとcoulumsのデータ配列を定義生成
-        cellArray = new Cell[rows, coulums];
+        //ここで配列の中にrowsとcolumnsのデータ配列を定義生成
+        cellArray = new Cell[rows, columns];
 
         var parent = gridLayoutGroup.gameObject.transform;
         //ぐりっとレイアウトグループのステータス設定
-        if (coulums < rows)
+        if (columns < rows)
         {
             gridLayoutGroup.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
-            gridLayoutGroup.constraintCount = coulums;
+            gridLayoutGroup.constraintCount = columns;
         }
         else
         {
@@ -51,7 +51,7 @@ public class GameManeger : MonoBehaviour
         //列形成
         for (var r = 0; r < rows; r++)
         {
-            for (var c = 0; c < coulums; c++)
+            for (var c = 0; c < columns; c++)
             {
 
                 Cell cell = Instantiate(Cellprefab);
@@ -68,24 +68,28 @@ public class GameManeger : MonoBehaviour
         {
             int tmp = 0;
             int tmp2 = 0;
-            for (int p = 0; p < int.MaxValue; p++)
-            {
-                tmp = Random.Range(0, rows);
-                tmp2 = Random.Range(0, coulums);
-                if (p < bombCount)
+
+            tmp = Random.Range(0, rows);
+            tmp2 = Random.Range(0, columns);
+            //再抽選開始rows*columnsが二倍なのはダブりを防ぐため
+            for (int d = 0; d < rows * columns * 2; d++)
+            {　　//セルがもうすでに爆弾のフラグがtrueなら
+                if (cellArray[tmp, tmp2].IsMineBuried == true)
+                {
+
+                    //再抽選
+                    tmp = Random.Range(0, rows);
+                    tmp2 = Random.Range(0, columns);
+
+                    //cellArray[tmp, tmp2].IsMineBuried = true;
+
+                }
+                //再抽選する必要がない場合はループを抜ける
+                else
                 {
                     break;
                 }
 
-            }
-
-
-            if (cellArray[tmp, tmp2].IsMineBuried == true)
-            {
-
-                int tmp3 = Random.Range(0, rows);
-                int tmp4 = Random.Range(0, coulums);
-                cellArray[tmp3, tmp4].IsMineBuried = true;
             }
             cellArray[tmp, tmp2].IsMineBuried = true;
         }
@@ -98,5 +102,38 @@ public class GameManeger : MonoBehaviour
     void Update()
     {
 
+    }
+    /// <summary>
+    /// 周囲の地雷を探して数える
+    /// </summary>
+    void FindCountNearMine(int r, int c)
+    {
+        r = 1;
+        c = 2;
+        //調べたい対象の右隣に爆弾があるかどうか
+        if(cellArray[r+1, c].IsMineBuried==true)
+        {
+
+        }
+    }
+    bool MineInCellTrueOrFalse(int r, int c)
+    {
+        if(r>=rows||r<0)
+        {
+            return false;
+        }
+        if(c>=columns||c<0)
+        {
+            return false;
+        }
+        if (cellArray[r, c].IsMineBuried == true)
+        {
+            return true;
+        }
+        else  
+        {
+            return false;
+
+        }
     }
 }
