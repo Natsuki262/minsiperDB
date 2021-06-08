@@ -116,7 +116,7 @@ public class GameManeger : MonoBehaviour
 
         }
     }
-    bool MineInCellTrueOrFalse(int r, int c)
+    bool IsMine(int r, int c)
     {
         if(r>=rows||r<0)
         {

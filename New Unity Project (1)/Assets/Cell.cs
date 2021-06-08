@@ -36,12 +36,18 @@ public class Cell : MonoBehaviour
     /// </summary>
     [SerializeField]
     Button button = null;
+    public Image mineImage;
+    private Sprite sprite;
 
     void Start()
     {
         if (isMineBuried == true)
         {
-            mineStatusTxt.text = "X";
+            //mineStatusTxt.text = "X";
+            sprite = Resources.Load<Sprite>("bom");
+            mineImage = this.GetComponent<Image>();
+            mineImage.sprite = sprite;
+
         }
         else
         {
@@ -60,5 +66,7 @@ public class Cell : MonoBehaviour
   public  void CellTouchOpen()
     {
         button.gameObject.SetActive(false);
+        var img = GetComponent<Image>();
+        //mg.sprite
     }
 }
