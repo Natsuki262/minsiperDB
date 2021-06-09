@@ -63,7 +63,8 @@ public class Cell : MonoBehaviour
     /// <summary>
     /// ユーザがタッチしたらシェルを開く
     /// </summary>
-  public  void CellTouchOpen()
+  //イベントトリガーに変更するかも
+    public  void CellTouchOpen()
     {
         button.gameObject.SetActive(false);
         var img = GetComponent<Image>();
