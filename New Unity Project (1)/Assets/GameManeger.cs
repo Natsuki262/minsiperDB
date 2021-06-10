@@ -116,20 +116,25 @@ public class GameManeger : MonoBehaviour
 
         }
     }
+   //セルに地雷あるかどうかを調べる関数
     bool IsMine(int r, int c)
     {
+        //セルがない場合
         if(r>=rows||r<0)
         {
             return false;
         }
+        //セルがない場合
         if(c>=columns||c<0)
         {
             return false;
         }
+        //地雷がある場合
         if (cellArray[r, c].IsMineBuried == true)
         {
             return true;
         }
+        //ない場合
         else  
         {
             return false;

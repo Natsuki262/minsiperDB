@@ -36,17 +36,23 @@ public class Cell : MonoBehaviour
     /// </summary>
     [SerializeField]
     Button button = null;
+    
+    [SerializeField]
     public Image mineImage;
+    
     private Sprite sprite;
+
+    [SerializeField]
+    public Image flagImg;
+
 
     void Start()
     {
+        
         if (isMineBuried == true)
         {
             //mineStatusTxt.text = "X";
-            sprite = Resources.Load<Sprite>("bom");
-            mineImage = this.GetComponent<Image>();
-            mineImage.sprite = sprite;
+            mineImage.gameObject.SetActive(true);
 
         }
         else
@@ -64,10 +70,21 @@ public class Cell : MonoBehaviour
     /// ユーザがタッチしたらシェルを開く
     /// </summary>
   //イベントトリガーに変更するかも
-    public  void CellTouchOpen()
+    public void CellTouchOpen()
     {
-        button.gameObject.SetActive(false);
-        var img = GetComponent<Image>();
+        if (Input.GetMouseButtonDown(0))
+        {
+            button.gameObject.SetActive(false);
+
+        }
+        else if (Input.GetMouseButtonDown(1))
+        {
+
+            flagImg.gameObject.SetActive(true);
+
+        }
+
+
         //mg.sprite
     }
 }
