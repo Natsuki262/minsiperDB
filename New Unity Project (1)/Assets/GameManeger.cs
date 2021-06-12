@@ -129,6 +129,7 @@ public class GameManeger : MonoBehaviour
         if (IsMine(r + 1, c + 1) == true) mineCount++;  //右下
         if (IsMine(r - 1, c + 1) == true) mineCount++;  //左下
         Debug.Log(mineCount);
+        cellArray[r, c].nearMineCountData = mineCount;
     }
 
     //セルに地雷あるかどうかを調べる関数

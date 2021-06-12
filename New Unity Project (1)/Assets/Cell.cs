@@ -36,19 +36,21 @@ public class Cell : MonoBehaviour
     /// </summary>
     [SerializeField]
     Button button = null;
-    
+
     [SerializeField]
     public Image mineImage;
-    
+
     private Sprite sprite;
 
     [SerializeField]
     public Image flagImg;
+    //周囲の地雷の数のデータ
+    public int nearMineCountData = 0;
 
 
     void Start()
     {
-        
+
         if (isMineBuried == true)
         {
             //mineStatusTxt.text = "X";
@@ -57,7 +59,12 @@ public class Cell : MonoBehaviour
         }
         else
         {
-            mineStatusTxt.text = " ";
+            
+            mineStatusTxt.text = nearMineCountData.ToString();
+            if (nearMineCountData == 0)
+            {
+                mineStatusTxt.text = " ";
+            }
         }
     }
 
