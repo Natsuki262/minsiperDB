@@ -93,6 +93,13 @@ public class GameManeger : MonoBehaviour
             }
             cellArray[tmp, tmp2].IsMineBuried = true;
         }
+       for(int r=0;r<rows; r++)
+        {
+            for(int c=0;c<columns;c++)
+            {
+                FindCountNearMine(r, c);
+            }
+        }
 
 
 
@@ -108,24 +115,32 @@ public class GameManeger : MonoBehaviour
     /// </summary>
     void FindCountNearMine(int r, int c)
     {
-        r = 1;
-        c = 2;
-        //調べたい対象の右隣に爆弾があるかどうか
-        if(cellArray[r+1, c].IsMineBuried==true)
-        {
+        //周囲地雷の数を数える変数
+        int mineCount = 0;
 
-        }
+        /*調べたい指定したセルの八方向に地雷があるかどうか
+        あるなら地雷のカウントを増やす*/
+        if (IsMine(r + 1, c) == true) mineCount++;      //右隣
+        if (IsMine(r - 1, c) == true) mineCount++;      //左隣     
+        if (IsMine(r, c - 1) == true) mineCount++;      //上
+        if (IsMine(r, c + 1) == true) mineCount++;      //下
+        if (IsMine(r + 1, c - 1) == true) mineCount++;  //右上
+        if (IsMine(r - 1, c - 1) == true) mineCount++;  //左上
+        if (IsMine(r + 1, c + 1) == true) mineCount++;  //右下
+        if (IsMine(r - 1, c + 1) == true) mineCount++;  //左下
+        Debug.Log(mineCount);
     }
-   //セルに地雷あるかどうかを調べる関数
+
+    //セルに地雷あるかどうかを調べる関数
     bool IsMine(int r, int c)
     {
         //セルがない場合
-        if(r>=rows||r<0)
+        if (r >= rows || r < 0)
         {
             return false;
         }
         //セルがない場合
-        if(c>=columns||c<0)
+        if (c >= columns || c < 0)
         {
             return false;
         }
@@ -135,7 +150,7 @@ public class GameManeger : MonoBehaviour
             return true;
         }
         //ない場合
-        else  
+        else
         {
             return false;
 
