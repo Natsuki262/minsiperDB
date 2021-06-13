@@ -35,7 +35,7 @@ public class Cell : MonoBehaviour
     /// ボタンセルをユーザに押してもらうため
     /// </summary>
     [SerializeField]
-    Button button = null;
+    GameObject button = null;
 
     [SerializeField]
     public Image mineImage;
@@ -47,6 +47,7 @@ public class Cell : MonoBehaviour
     //周囲の地雷の数のデータ
     public int nearMineCountData = 0;
 
+   public GameManeger gameManeger=null;//GameOver処理用
 
     void Start()
     {
@@ -55,6 +56,7 @@ public class Cell : MonoBehaviour
         {
             //mineStatusTxt.text = "X";
             mineImage.gameObject.SetActive(true);
+            
 
         }
         else
@@ -79,9 +81,17 @@ public class Cell : MonoBehaviour
   //イベントトリガーに変更するかも
     public void CellTouchOpen()
     {
+        Debug.Log("動いたよ！");
         if (Input.GetMouseButtonDown(0))
         {
-            button.gameObject.SetActive(false);
+            button.SetActive(false);
+            if(IsMineBuried==true)
+            {
+                //げーむおーばー呼び出し
+                gameManeger.GameOver();
+                
+            }
+           
 
         }
         else if (Input.GetMouseButtonDown(1))
@@ -92,6 +102,6 @@ public class Cell : MonoBehaviour
         }
 
 
-        //mg.sprite
+        
     }
 }

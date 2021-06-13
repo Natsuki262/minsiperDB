@@ -24,7 +24,7 @@ public class GameManeger : MonoBehaviour
     [SerializeField]
     private int bombCount = 0;
 
-
+    
 
     /// <summary>
     /// 行、列二次元配列
@@ -59,6 +59,8 @@ public class GameManeger : MonoBehaviour
                 cellArray[r, c] = cell;
                 //cell.IsMineBuried = true;
                 cell.transform.SetParent(parent);
+                //ここで実態データを代入理由Cellでゲームマネージャーの関数でーたの実態必要だから
+                cellArray[r,c].gameManeger = this;
 
             }
 
@@ -93,9 +95,9 @@ public class GameManeger : MonoBehaviour
             }
             cellArray[tmp, tmp2].IsMineBuried = true;
         }
-       for(int r=0;r<rows; r++)
+        for (int r = 0; r < rows; r++)
         {
-            for(int c=0;c<columns;c++)
+            for (int c = 0; c < columns; c++)
             {
                 FindCountNearMine(r, c);
             }
@@ -128,7 +130,6 @@ public class GameManeger : MonoBehaviour
         if (IsMine(r - 1, c - 1) == true) mineCount++;  //左上
         if (IsMine(r + 1, c + 1) == true) mineCount++;  //右下
         if (IsMine(r - 1, c + 1) == true) mineCount++;  //左下
-        Debug.Log(mineCount);
         cellArray[r, c].nearMineCountData = mineCount;
     }
 
@@ -156,5 +157,9 @@ public class GameManeger : MonoBehaviour
             return false;
 
         }
+    }
+   public void GameOver()
+    {
+        Debug.Log("げーむおーばーおっさんに絡まれた！");
     }
 }
