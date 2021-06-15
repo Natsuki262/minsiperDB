@@ -23,7 +23,8 @@ public class GameManeger : MonoBehaviour
     private Cell Cellprefab = null;
     [SerializeField]
     private int bombCount = 0;
-
+    [SerializeField]
+   public GameObject Ui;
     
 
     /// <summary>
@@ -161,5 +162,7 @@ public class GameManeger : MonoBehaviour
    public void GameOver()
     {
         Debug.Log("げーむおーばーおっさんに絡まれた！");
+        Ui.SetActive(true);
+        Debug.Log(Ui);
     }
 }

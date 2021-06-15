@@ -47,21 +47,25 @@ public class Cell : MonoBehaviour
     //周囲の地雷の数のデータ
     public int nearMineCountData = 0;
 
-   public GameManeger gameManeger=null;//GameOver処理用
+    public GameManeger gameManeger = null;//GameOver処理用
+
+    public AudioSource audio;
+    public AudioSource audio2;
 
     void Start()
     {
-
+        audio = GetComponent<AudioSource>();
+        audio2 = GetComponent<AudioSource>();
         if (isMineBuried == true)
         {
             //mineStatusTxt.text = "X";
             mineImage.gameObject.SetActive(true);
-            
+
 
         }
         else
         {
-            
+
             mineStatusTxt.text = nearMineCountData.ToString();
             if (nearMineCountData == 0)
             {
@@ -84,24 +88,29 @@ public class Cell : MonoBehaviour
         Debug.Log("動いたよ！");
         if (Input.GetMouseButtonDown(0))
         {
+            audio2.PlayOneShot(audio2.clip);
             button.SetActive(false);
-            if(IsMineBuried==true)
+            if (IsMineBuried == true)
             {
+
                 //げーむおーばー呼び出し
+                audio.PlayOneShot(audio.clip);
                 gameManeger.GameOver();
-                
+
+
             }
-           
+
 
         }
         else if (Input.GetMouseButtonDown(1))
         {
 
             flagImg.gameObject.SetActive(true);
+            //if()
 
         }
 
 
-        
+
     }
 }
