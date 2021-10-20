@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class Cell : MonoBehaviour
 {
+    bool flugFlag = false;
     // Start is called before the first frame update
     /// <summary>
     /// 地雷をも持っているか　初期は持ってない
@@ -14,6 +15,7 @@ public class Cell : MonoBehaviour
     /// ゲットで地雷の情報を渡す
     ///セッターで引数を代入
     /// </summary>
+
     public bool IsMineBuried
     {
 
@@ -86,7 +88,7 @@ public class Cell : MonoBehaviour
     public void CellTouchOpen()
     {
         Debug.Log("動いたよ！");
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0)&&!flugFlag)
         {
             audio2.PlayOneShot(audio2.clip);
             button.SetActive(false);
@@ -105,8 +107,19 @@ public class Cell : MonoBehaviour
         else if (Input.GetMouseButtonDown(1))
         {
 
-            flagImg.gameObject.SetActive(true);
-            //if()
+
+            if (!flugFlag)
+            {
+
+                flagImg.gameObject.SetActive(true);
+                flugFlag = true;
+            }
+            else
+            {
+                flagImg.gameObject.SetActive(false);
+                flugFlag = false;
+            }
+
 
         }
 
