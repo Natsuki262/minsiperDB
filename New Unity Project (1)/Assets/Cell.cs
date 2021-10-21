@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Cell : MonoBehaviour
 {
-    bool flugFlag = false;
+    
     // Start is called before the first frame update
     /// <summary>
     /// 地雷をも持っているか　初期は持ってない
@@ -54,6 +54,8 @@ public class Cell : MonoBehaviour
     public AudioSource audio;
     public AudioSource audio2;
 
+    bool flugFlag = false;
+
     void Start()
     {
         audio = GetComponent<AudioSource>();
@@ -80,6 +82,13 @@ public class Cell : MonoBehaviour
     void Update()
     {
 
+    }
+    /// <summary>
+    /// ボタンのセットアクティブを切り替える
+    /// </summary>
+    public void ChengeSetActive()
+    {
+        button.SetActive(false);
     }
     /// <summary>
     /// ユーザがタッチしたらシェルを開く

@@ -24,8 +24,8 @@ public class GameManeger : MonoBehaviour
     [SerializeField]
     private int bombCount = 0;
     [SerializeField]
-   public GameObject Ui;
-    
+    public GameObject Ui;
+
 
     /// <summary>
     /// 行、列二次元配列
@@ -61,7 +61,7 @@ public class GameManeger : MonoBehaviour
                 //cell.IsMineBuried = true;
                 cell.transform.SetParent(parent);
                 //ここで実態データを代入理由Cellでゲームマネージャーの関数でーたの実態必要だから
-                cellArray[r,c].gameManeger = this;
+                cellArray[r, c].gameManeger = this;
 
             }
 
@@ -95,6 +95,7 @@ public class GameManeger : MonoBehaviour
 
             }
             cellArray[tmp, tmp2].IsMineBuried = true;
+            //cellArray[tmp, tmp2].nearMineCountData = -1;
         }
         for (int r = 0; r < rows; r++)
         {
@@ -131,10 +132,24 @@ public class GameManeger : MonoBehaviour
         if (IsMine(r - 1, c - 1) == true) mineCount++;  //左上
         if (IsMine(r + 1, c + 1) == true) mineCount++;  //右下
         if (IsMine(r - 1, c + 1) == true) mineCount++;  //左下
-        cellArray[r, c].nearMineCountData = mineCount;
+       
+        if (cellArray[r, c].IsMineBuried)
+        {
+           
+            cellArray[r, c].nearMineCountData =-1;
+        }
+        else
+        {
+            cellArray[r, c].nearMineCountData = mineCount;
+        }
     }
 
-    //セルに地雷あるかどうかを調べる関数
+    /// <summary>
+    /// セルに地雷あるかどうかを調べる関数
+    /// </summary>
+    /// <param name="r">列</param>
+    /// <param name="c">行</param>
+    /// <returns>爆弾があるかないか</returns>
     bool IsMine(int r, int c)
     {
         //セルがない場合
@@ -159,7 +174,46 @@ public class GameManeger : MonoBehaviour
 
         }
     }
-   public void GameOver()
+    /// <summary>
+    /// 隣接する空白のマスを空ける関数
+    /// </summary>
+    void AdjacentblankOpen(int r, int c)
+    {
+        if (cellArray[r + 1, c].nearMineCountData == 0)//右隣り
+        {
+            cellArray[r  +1, c].ChengeSetActive();
+        }
+        if (cellArray[r - 1, c].nearMineCountData == 0)//左隣り
+        {
+            cellArray[r - 1, c].ChengeSetActive();
+        }
+        if (cellArray[r  , c-1].nearMineCountData == 0)//上
+        {
+            cellArray[r  , c-1].ChengeSetActive();
+        }
+        if (cellArray[r, c +1].nearMineCountData == 0)//下
+        {
+            cellArray[r, c +1].ChengeSetActive();
+        }
+        if (cellArray[r+1 ,c - 1].nearMineCountData == 0)//右上
+        {
+            cellArray[r+1, c - 1].ChengeSetActive();
+        }
+        if (cellArray[r-1, c - 1].nearMineCountData == 0)//左上
+        {
+            cellArray[r-1, c- 1].ChengeSetActive();
+        }
+        if (cellArray[r + 1, c + 1].nearMineCountData == 0)//右下
+        {
+            cellArray[r + 1, c + 1].ChengeSetActive();
+        }
+        if (cellArray[r - 1, c + 1].nearMineCountData == 0)//左下
+        {
+            cellArray[r - 1, c + 1].ChengeSetActive();
+        }
+    }
+
+    public void GameOver()
     {
         Debug.Log("げーむおーばーおっさんに絡まれた！");
         Ui.SetActive(true);
